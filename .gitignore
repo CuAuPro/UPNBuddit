@@ -1,0 +1,6 @@
+# Ignore logs, results and pycache
+
+log/
+result/
+**/__pycache__
+.vscode/
