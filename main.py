@@ -32,82 +32,72 @@ __email__ =  "kristjancuznar0@gmail.com"
 __license__ = "GPLv3"
 __maintainer__ = "developer"
 __status__ = "Production"
-__version__ = "0.0.2"
+__version__ = "0.1.0"
 
 import argparse
-import pandas as pd
-import os
-from jinja2 import Environment, FileSystemLoader
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QFileDialog
 
-def main(args):
+import gui.menu as menu
+import engine.converter as converter
+
+
+class Menu(QtWidgets.QMainWindow, menu.Ui_MainWindow):
+    def __init__(self, parent=None, args=None):
+        super(Menu, self).__init__(parent)
+        self.setupUi(self)
+        self.setWindowTitle('UPNBuddit')
+        
+        self.pb_start.clicked.connect(self.evt_start)
+        self.pb_importConfig.clicked.connect(self.evt_importConfig)
+        self.pb_importList.clicked.connect(self.evt_importList)
+        self.pb_importTemplates.clicked.connect(self.evt_importTemplates)
+        
+        self.args = args
+        self.default_path = '.'
+        
+    
+    def evt_start(self):
+        self.l_info.setText("Zacetek izvoza.")
+        ret = converter.run(self.args)
+        if ret == 0:
+            print("Generiran dokument: {}".format(self.args.output_path))
+            self.l_info.setText("Generiran dokument: {}".format(self.args.output_path))
+        elif ret == -1:
+            self.l_info.setText("Konfiguracijske datoteke ni mogoce najti.")
+        elif ret == -2:
+            self.l_info.setText("Vhodne datoteke ni mogoce najti.")
+        elif ret == -3:
+            self.l_importTemplates.setText("Mape s predlogami ni mogoce najti.")
+        elif ret == -4:
+            self.l_info.setText("Napaka pri izvozu. Struktura konfiguracijske ali vhodne datoteke ni pravilna.")
+        return
+    
+    def evt_importConfig(self):
+        self.args.config_path = QFileDialog.getOpenFileName( self, 'Open file', self.default_path,"(*.xls)")[0]
+        self.l_importConfig.setText(self.args.config_path)
+        return
+    
+    def evt_importList(self):
+        self.args.input_path = QFileDialog.getOpenFileName( self, 'Open file', self.default_path,"(*.xls)")[0]
+        self.l_importList.setText(self.args.input_path)
+        return
+
+    def evt_importTemplates(self):
+        self.args.template_path = QFileDialog.getExistingDirectory(self, "Select Directory")
+        self.l_importTemplates.setText(self.args.template_path)
+        return
+    
+if __name__ == "__main__":
     print("Orodje za množično urejanje položnic.")
     print("Verzija: {} || {}, {}".format(__version__, __author__,__contact__))
-    try:
-        config = pd.read_excel(args.config_path)
-    except:
-        print("Konfiguracijske datoteke ni mogoce najti.")
-        return -1
-    try:     
-        data = pd.read_excel(args.input_path)
-    except:
-        print("Vhodne datoteke ni mogoce najti.")
-        return -1
     
-    nr_members = data.shape[0]
-    
-    encoding = 'utf-16'
-    environment = Environment(loader=FileSystemLoader("templates/"))
-    print("Zacetek izvoza.")
-    try:
-        
-        with open(args.output_path, 'w', encoding=encoding) as f:
-            template = environment.get_template("header.txt")
-            content = template.render(
-                encoding=encoding,
-            )
-            # Write heading
-            f.write(content)
-            document_type =  config['Tip dokumenta'].values[0].replace(' ','_')
-            for i in range(nr_members):
-                template = environment.get_template("body.txt")
-                content = template.render(
-                    id = str(i),
-                    TipDokumenta = document_type,
-                    BremeIme = data.iloc[i]['Ime'] + ' ' + data.iloc[i]['Priimek'],
-                    BremeUlica = str(data.iloc[i]['Naslov']),
-                    BremeKraj = str(int(data.iloc[i]['Poštna številka'])) + ' ' + data.iloc[i]['Kraj'],
-                    DobroIBAN = config['IBAN prejemnika'].values[0],
-                    DobroModel = config['Referenca model'].values[0],
-                    DobroSklic = config['Referenca sklic'].values[0],
-                    DobroIme = config['Ime prejemnika'].values[0],
-                    DobroUlica = config['Naslov prejemnika'].values[0],
-                    DobroKraj = config['Kraj prejemnika'].values[0],
-                    Znesek = ("%.2f" % round(float(config['Znesek'].values[0]), 2)),
-                    DatumPlacila = pd.to_datetime(config['Datum placila'].values[0]).strftime('%d.%m.%Y'),
-                    NamenPlacila = config['Namen'].values[0],
-                    KodaNamena =  config['Koda namena'].values[0],
-                    RokPlacila = pd.to_datetime(config['Rok placila'].values[0]).strftime('%d.%m.%Y'),
-                    RokPlacilaDni = "0",
-                    Nujno = str((config['Nujno'].values[0].lower() == 'da')).lower(),
-                    BrezZneska = str((config['Brez zneska'].values[0].lower() == 'da')).lower(),
-                    BrezPlacnika = str((config['Brez placnika'].values[0].lower() == 'da')).lower(),
-                    NatisniQR = str((config['QR'].values[0].lower() == 'da')).lower(),
-                )
-                f.write(content)
-                
-            template = environment.get_template("footer.txt")
-            content = template.render()
-            # Write footer
-            f.write(content)
-            return 0 
-    except:
-        print("Napaka pri izvozu. Struktura konfiguracijske ali vhodne datoteke ni pravilna.")
-        os.remove(args.output_path)
-        return -1
-        
-
-if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Tool for bulk editing of remittance slips.')
+    parser.add_argument("-m", "--manual-mode", action='store_true',
+                        help="Tool mode (default: %(default)s)")
+    parser.add_argument("-t", "--template-path", type=str, default='templates/',
+                        help="Template folder path (default: %(default)s)") 
     parser.add_argument("-i", "--input-path", type=str, default='seznam.xls',
                         help="Input file path (default: %(default)s)")
     parser.add_argument("-o", "--output-path", type=str, default='export.txt',
@@ -116,11 +106,18 @@ if __name__ == "__main__":
                         help="Config file path (default: %(default)s)")
     args = parser.parse_args()
 
-    ret = main(args)
-    
-    if ret == 0:
-        print("Generiran dokument: {}".format(args.output_path))
-        
+    if args.manual_mode == True:
+        ret = converter.run(args)
+        if ret == 0:
+            print("Generiran dokument: {}".format(args.output_path))
+        else:
+            pass
     else:
-        pass
+        app = QApplication(sys.argv)
+        form = Menu(args=args)
+        form.show()
+        app.exec_()
+
+        
+
 

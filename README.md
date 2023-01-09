@@ -4,6 +4,10 @@ UPNBuddit je zmogljivo orodje za množično urejanje seznama plačnikov za uvoz 
 ## Navodila za uporabo
 Opomba: Vsi dokumenti (`seznam.xls`, `config.xls` ter generiran `export.txt`) se privzeto nahajajo v korenski mapi projekta (`UPNBuddit/`).
 
+## Namestitev grafičnega vmesnika
+
+Grafični vmesnik se lahko brezplačno prenese [tukaj](https://github.com/CuAuPro/UPNBuddit/releases/tag/v0.1.0). Potrebno je prenesti `UPNBuddit.zip` in ga na računalniku odpakirati (angl. ''unzip'').
+
 ### Predpriprava
 
 1. V Excelovo tabelo `seznam.xls` vnesemo seznam članov/plačnikov.
@@ -31,19 +35,53 @@ pip install -r requirements.txt
 
 ##### Uporaba
 ```bash
-usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
+usage: python .\main.py [-h] [-m] [-t TEMPLATE_PATH] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 ```
 ##### Argumenti
 
 |short|long|default|help|
 | :--- | :--- | :--- | :--- |
 |`-h`|`--help`||show this help message and exit|
-|`-i`|`--input-path`|`seznam.xls`|Input file path.|
-|`-o`|`--output-path`|`export.txt`|Output file path.|
-|`-c`|`--config-path`|`config.xls`|Config file path.|
+|`-m`|`--manual-mode`||Tool mode (default: %(default)s)|
+|`-t`|`--template-path`|`templates/`|Template folder path (default: %(default)s)|
+|`-i`|`--input-path`|`seznam.xls`|Input file path (default: %(default)s)|
+|`-o`|`--output-path`|`export.txt`|Output file path (default: %(default)s)|
+|`-c`|`--config-path`|`config.xls`|Config file path (default: %(default)s)|
 
 
+#### Preko grafičnega vmesnika
 
+**Grafični vmesnik se zažene tako, da se odpre mapo, kjer je razširjen ter požene datoteko `launch.bat`**
+
+
+Izgled grafičnega vmesnika je prikazan na spodnji sliki.
+| ![GUI](/docs/img/gui_1.png) |
+|:--:| 
+| *Grafični vmesnik.* |
+
+1. Pritisnemo na gumb Uvoz konfiguracije in izberemo datoteko `config.xls`. Izberemo Odpri.
+
+| ![Konfiguracija](/docs/img/gui_config.png) |
+|:--:| 
+| *Izbira konfiguracije.* |
+    
+2. Pritisnemo na gumb Uvoz seznama in izberemo datoteko `seznam.xls`. Izberemo Odpri.
+
+| ![Konfiguracija](/docs/img/gui_config.png) |
+|:--:| 
+| *Izbira seznama.* |
+
+3. Pritisnemo na gumb Uvoz predlog in izberemo mapo, kjer se nahajajo predloge `templates/`. Izberemo Izberite mapo.
+
+| ![Konfiguracija](/docs/img/gui_templates.png) |
+|:--:| 
+| *Izbira mape predlog.* |
+
+4. Pritisnemo na gumb START. Če smo pravilno sledili navodilom, nas program obvesti o končanju in pot do generirane daoteke.
+
+| ![Konfiguracija](/docs/img/gui_done.png) |
+|:--:| 
+| *Končni izpis.* |
 
 ### Uvoz v orodje [IzpisUPNQR](https://www.zbs-giz.si/placilni-promet/)
 
@@ -60,7 +98,7 @@ usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 
     2.2 Vpišemo ime mape.
 
-    3.2 Izberemo gumb shrani.
+    2.3 Izberemo gumb shrani.
 
 3. Uvoz podatkov.
 
@@ -73,7 +111,7 @@ usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 
     3.2 Vpišemo ustrezni dokument, ki smo ga generirali s programom `UPNBuddit`.
     
-    3.2 Izberemo gumb Odpri.
+    3.3 Izberemo gumb Odpri.
 
 Če smo pravilno sledili navodilom, nas program obvesti, da so bili vnosi pravilno uvoženi.
 
