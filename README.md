@@ -8,13 +8,16 @@ Opomba: Vsi dokumenti (`seznam.xls`, `config.xls` ter generiran `export.txt`) se
 
 1. V Excelovo tabelo `seznam.xls` vnesemo seznam članov/plačnikov.
 
-![Konfiguracija](/docs/img/seznam.png)
-*Primer izseka sintetičnih podatkov.*
+| ![Konfiguracija](/docs/img/seznam.png) |
+|:--:| 
+| *Primer izseka sintetičnih podatkov.* |
     
 2. V Excelovo tabelo `config.xls` vnesemo konfiguracijo UPN.
 
-![Konfiguracija](/docs/img/config.png)
-*Primer konfiguracije UPN.*
+| ![Konfiguracija](/docs/img/config.png) |
+|:--:| 
+| *Primer konfiguracije UPN.* |
+
 
 ### Navodila za uporabo programa
 
@@ -48,7 +51,10 @@ usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 
 2. Ustvarjanje nove mape.
 
-![Uvoz v orodje IzpisUPNQR](/docs/img/IzvozUPNQR_1.png)*: Ustvarjanje nove mape.*
+| ![Uvoz v orodje IzpisUPNQR](/docs/img/IzvozUPNQR_1.png) |
+|:--:| 
+| *Ustvarjanje nove mape.* |
+
 
     2.1 Izberemo gumb Dodaj.
 
@@ -58,7 +64,10 @@ usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 
 3. Uvoz podatkov.
 
-![Uvoz v orodje IzpisUPNQR](/docs/img/IzvozUPNQR_2.png)*: Uvoz podatkov.*
+| ![Uvoz v orodje IzpisUPNQR](/docs/img/IzvozUPNQR_2.png) |
+|:--:| 
+| *Uvoz podatkov.* |
+
 
     3.1 Izberemo gumb Uvoz.
 
