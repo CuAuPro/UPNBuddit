@@ -40,9 +40,8 @@ import os
 from jinja2 import Environment, FileSystemLoader
 
 def main(args):
-    print("Verzija: {}".format(__version__))
-    print("Avtor: {}".format(__author__))
-    print("Kontakt: {}".format(__contact__))
+    print("Orodje za množično urejanje položnic.")
+    print("Verzija: {} || {}, {}".format(__version__, __author__,__contact__))
     try:
         config = pd.read_excel(args.config_path)
     except:
@@ -108,7 +107,7 @@ def main(args):
         
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Izvoz clanov za UPN')
+    parser = argparse.ArgumentParser(description='Tool for bulk editing of remittance slips.')
     parser.add_argument("-i", "--input-path", type=str, default='seznam.xls',
                         help="Input file path (default: %(default)s)")
     parser.add_argument("-o", "--output-path", type=str, default='export.txt',
@@ -120,7 +119,6 @@ if __name__ == "__main__":
     ret = main(args)
     
     if ret == 0:
-        print("Koncano. Hvala za uporabo programa.")
         print("Generiran dokument: {}".format(args.output_path))
         
     else:
