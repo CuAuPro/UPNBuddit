@@ -1,5 +1,12 @@
 # UPNBuddit
-UPNBuddit je zmogljivo orodje za množično urejanje seznama plačnikov za uvoz v orodje [IzpisUPNQR](https://www.zbs-giz.si/placilni-promet/).
+**UPNBuddit** je zmogljivo orodje za množično urejanje seznama plačnikov za uvoz v orodje [IzpisUPNQR](https://www.zbs-giz.si/placilni-promet/).
+
+Orodje za izpis UPN obrazcev s QR kodami [IzpisUPNQR](https://www.zbs-giz.si/placilni-promet/) je brezplačna aplikacija Združenja bank ki pomaga pri generiranju UPN obrazcev.
+
+Omenjena aplikacija pa ne omogoča množičnega urejanja ter vnosa seznama plačnikov, kar je pri večjih količinah izpisov UPN problematično in časovno potratno.
+
+V takšnem primeru lahko seznam plačnikov in konfiguracijo UPN vnesete v Excelovi datoteki ter z aplikacijo UPNBuddit podatke prevedete v ustrezen format za uvoz v orodje [IzpisUPNQR](https://www.zbs-giz.si/placilni-promet/).
+
 
 ## Navodila za uporabo
 Opomba: Vsi dokumenti (`seznam.xls`, `config.xls` ter generiran `export.txt`) se privzeto nahajajo v korenski mapi projekta (`UPNBuddit/`).
