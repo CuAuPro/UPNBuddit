@@ -25,9 +25,13 @@ Grafični vmesnik se lahko brezplačno prenese [tukaj](https://github.com/CuAuPr
 
 ### Navodila za uporabo programa
 
-#### Preko terminala
+Obstajata dve možnosti uporabe programa:
+ - [a) Preko terminala](#terminal).
+ - [b) Preko grafičnega vmesnika](#gui).
 
-Namestimo ustrezne dodatne programske module:
+#### a) Preko terminala<a id='terminal'></a>
+
+Prenesemo projekt in ga razširimo v mapo, nato nNamestimo ustrezne dodatne programske module:
 
 ```bash
 pip install -r requirements.txt
@@ -49,7 +53,7 @@ usage: python .\main.py [-h] [-m] [-t TEMPLATE_PATH] [-i INPUT_PATH] [-o OUTPUT_
 |`-c`|`--config-path`|`config.xls`|Config file path (default: %(default)s)|
 
 
-#### Preko grafičnega vmesnika
+#### b) Preko grafičnega vmesnika <a id='gui'></a>
 
 **Grafični vmesnik se zažene tako, da se odpre mapo, kjer je razširjen ter požene datoteko `launch.bat`**
 
