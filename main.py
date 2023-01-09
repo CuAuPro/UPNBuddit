@@ -32,14 +32,17 @@ __email__ =  "kristjancuznar0@gmail.com"
 __license__ = "GPLv3"
 __maintainer__ = "developer"
 __status__ = "Production"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 import argparse
 import pandas as pd
 import os
+from jinja2 import Environment, FileSystemLoader
 
 def main(args):
     print("Verzija: {}".format(__version__))
+    print("Avtor: {}".format(__author__))
+    print("Kontakt: {}".format(__contact__))
     try:
         config = pd.read_excel(args.config_path)
     except:
@@ -53,53 +56,56 @@ def main(args):
     
     nr_members = data.shape[0]
     
+    encoding = 'utf-16'
+    environment = Environment(loader=FileSystemLoader("templates/"))
     print("Zacetek izvoza.")
     try:
         
-        with open(args.output_path, 'w', encoding="utf-16") as f:
-            
+        with open(args.output_path, 'w', encoding=encoding) as f:
+            template = environment.get_template("header.txt")
+            content = template.render(
+                encoding=encoding,
+            )
             # Write heading
-            f.write('<?xml version="1.0" encoding="utf-16"?>\n')
-            f.write('<ArrayOfUPN xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n')
-            
+            f.write(content)
+            document_type =  config['Tip dokumenta'].values[0].replace(' ','_')
             for i in range(nr_members):
-                f.write('  <UPN>\n')
-                f.write('    <ID>' + str(i) + '</ID>\n')
-                f.write('    <TipDokumenta>Nalog_za_plačilo</TipDokumenta>\n')
-                f.write('    <BremeIBAN />\n')
-                f.write('    <BremeModel />\n')
-                f.write('    <BremeSklic />\n')
-                f.write('    <BremeIme>' + data.iloc[i]['Ime'] + ' ' + data.iloc[i]['Priimek'] + '</BremeIme>\n')
-                f.write('    <BremeUlica>'+ str(data.iloc[i]['Naslov']) + '</BremeUlica>\n')
-                f.write('    <BremeKraj>'+ str(int(data.iloc[i]['Poštna številka'])) + ' ' + data.iloc[i]['Kraj'] + '</BremeKraj>\n')
-                f.write('    <DobroIBAN>'+ config['IBAN prejemnika'].values[0] + '</DobroIBAN>\n')
-                f.write('    <DobroModel>'+ config['Referenca model'].values[0] + '</DobroModel>\n')
-                f.write('    <DobroSklic>'+ config['Referenca sklic'].values[0] + '</DobroSklic>\n')
-                f.write('    <DobroIme>' + config['Ime prejemnika'].values[0] + '</DobroIme>\n')
-                f.write('    <DobroUlica>' + config['Naslov prejemnika'].values[0] + '</DobroUlica>\n')
-                f.write('    <DobroKraj>' + config['Kraj prejemnika'].values[0] + '</DobroKraj>\n')
-                f.write('    <Znesek>' + ("%.2f" % round(float(config['Znesek'].values[0]), 2)) + '</Znesek>\n')
-                f.write('    <DatumPlacila>' + pd.to_datetime(config['Datum placila'].values[0]).strftime('%d.%m.%Y') + '</DatumPlacila>\n')
-                f.write('    <NamenPlacila>' + config['Namen'].values[0] + '</NamenPlacila>\n')
-                f.write('    <KodaNamena>' + config['Koda namena'].values[0] + '</KodaNamena>\n')
-                f.write('    <RokPlacila>' + pd.to_datetime(config['Rok placila'].values[0]).strftime('%d.%m.%Y') + '</RokPlacila>\n')
-                f.write('    <RokPlacilaDni>0</RokPlacilaDni>\n')
-                f.write('    <Nujno>' + str((config['Nujno'].values[0] == 'Da')).lower() + '</Nujno>\n')
-                f.write('    <BrezZneska>' + str((config['Brez zneska'].values[0] == 'Da')).lower() + '</BrezZneska>\n')
-                f.write('    <BrezPlacnika>' + str((config['Brez placnika'].values[0] == 'Da')).lower() + '</BrezPlacnika>\n')
-                f.write('    <NatisniQR>' + str((config['QR'].values[0] == 'Da')).lower() + '</NatisniQR>\n')
-                f.write('  </UPN>\n')
-            
-            f.write('</ArrayOfUPN>\n')
+                template = environment.get_template("body.txt")
+                content = template.render(
+                    id = str(i),
+                    TipDokumenta = document_type,
+                    BremeIme = data.iloc[i]['Ime'] + ' ' + data.iloc[i]['Priimek'],
+                    BremeUlica = str(data.iloc[i]['Naslov']),
+                    BremeKraj = str(int(data.iloc[i]['Poštna številka'])) + ' ' + data.iloc[i]['Kraj'],
+                    DobroIBAN = config['IBAN prejemnika'].values[0],
+                    DobroModel = config['Referenca model'].values[0],
+                    DobroSklic = config['Referenca sklic'].values[0],
+                    DobroIme = config['Ime prejemnika'].values[0],
+                    DobroUlica = config['Naslov prejemnika'].values[0],
+                    DobroKraj = config['Kraj prejemnika'].values[0],
+                    Znesek = ("%.2f" % round(float(config['Znesek'].values[0]), 2)),
+                    DatumPlacila = pd.to_datetime(config['Datum placila'].values[0]).strftime('%d.%m.%Y'),
+                    NamenPlacila = config['Namen'].values[0],
+                    KodaNamena =  config['Koda namena'].values[0],
+                    RokPlacila = pd.to_datetime(config['Rok placila'].values[0]).strftime('%d.%m.%Y'),
+                    RokPlacilaDni = "0",
+                    Nujno = str((config['Nujno'].values[0].lower() == 'da')).lower(),
+                    BrezZneska = str((config['Brez zneska'].values[0].lower() == 'da')).lower(),
+                    BrezPlacnika = str((config['Brez placnika'].values[0].lower() == 'da')).lower(),
+                    NatisniQR = str((config['QR'].values[0].lower() == 'da')).lower(),
+                )
+                f.write(content)
+                
+            template = environment.get_template("footer.txt")
+            content = template.render()
+            # Write footer
+            f.write(content)
             return 0 
     except:
         print("Napaka pri izvozu. Struktura konfiguracijske ali vhodne datoteke ni pravilna.")
         os.remove(args.output_path)
         return -1
         
-
-
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Izvoz clanov za UPN')
@@ -119,5 +125,4 @@ if __name__ == "__main__":
         
     else:
         pass
-    print("Avtor: {}".format(__author__))
-    print("Kontakt: {}".format(__contact__))
+
