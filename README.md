@@ -8,11 +8,13 @@ Opomba: Vsi dokumenti (`seznam.xls`, `config.xls` ter generiran `export.txt`) se
 
 1. V Excelovo tabelo `seznam.xls` vnesemo seznam članov/plačnikov.
 
-![Konfiguracija](/docs/img/seznam.png)*: Primer izseka sintetičnih podatkov.*
+![Konfiguracija](/docs/img/seznam.png)
+*Primer izseka sintetičnih podatkov.*
     
 2. V Excelovo tabelo `config.xls` vnesemo konfiguracijo UPN.
 
-![Konfiguracija](/docs/img/config.png)*: Primer konfiguracije UPN.*
+![Konfiguracija](/docs/img/config.png)
+*Primer konfiguracije UPN.*
 
 ### Navodila za uporabo programa
 
@@ -24,7 +26,7 @@ Namestimo ustrezne dodatne programske module:
 pip install -r requirements.txt
 ```
 
-##### Uporaba:
+##### Uporaba
 ```bash
 usage: python .\main.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-c CONFIG_PATH]
 ```
