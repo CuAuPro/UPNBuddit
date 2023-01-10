@@ -13,7 +13,7 @@ Opomba: Vsi dokumenti (`seznam.xls`, `config.xls` ter generiran `export.txt`) se
 
 ### Namestitev grafičnega vmesnika
 
-Grafični vmesnik se lahko brezplačno prenese [tukaj](https://github.com/CuAuPro/UPNBuddit/releases/tag/v0.1.0). Potrebno je prenesti `UPNBuddit.zip` in ga na računalniku odpakirati (angl. ''unzip'').
+Grafični vmesnik se lahko brezplačno prenese [tukaj](https://github.com/CuAuPro/UPNBuddit/releases/latest). Potrebno je prenesti `UPNBuddit.zip` in ga na računalniku odpakirati (angl. ''unzip'').
 
 ### Predpriprava
 
