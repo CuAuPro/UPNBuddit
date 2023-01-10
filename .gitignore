@@ -6,3 +6,4 @@ result/
 .vscode/
 *_autosave*
 UPNBuddit*
+export*.txt

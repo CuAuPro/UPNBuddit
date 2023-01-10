@@ -38,7 +38,7 @@ Obstajata dve možnosti uporabe programa:
 
 #### a) Preko terminala<a id='terminal'></a>
 
-Prenesemo projekt in ga razširimo v mapo, nato nNamestimo ustrezne dodatne programske module:
+Prenesemo projekt in ga razširimo v mapo, nato namestimo ustrezne dodatne programske module:
 
 ```bash
 pip install -r requirements.txt

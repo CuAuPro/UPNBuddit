@@ -191,7 +191,7 @@ seznama</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>410</y>
+      <y>430</y>
       <width>800</width>
       <height>41</height>
      </rect>
@@ -221,9 +221,9 @@ seznama</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>460</y>
+      <y>480</y>
       <width>800</width>
-      <height>61</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -303,6 +303,45 @@ predlog</string>
     </property>
     <property name="text">
      <string>Developed by: Kristjan Cuznar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_selectOutputFIle">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>380</y>
+      <width>401</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>export.txt</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_selectOutputFIle">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>380</y>
+      <width>150</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Izhodna
+datoteka</string>
     </property>
    </widget>
   </widget>

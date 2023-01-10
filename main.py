@@ -53,6 +53,7 @@ class Menu(QtWidgets.QMainWindow, menu.Ui_MainWindow):
         self.pb_importConfig.clicked.connect(self.evt_importConfig)
         self.pb_importList.clicked.connect(self.evt_importList)
         self.pb_importTemplates.clicked.connect(self.evt_importTemplates)
+        self.pb_selectOutputFIle.clicked.connect(self.evt_selectOutputFIle)
         
         self.args = args
         self.default_path = '.'
@@ -75,12 +76,12 @@ class Menu(QtWidgets.QMainWindow, menu.Ui_MainWindow):
         return
     
     def evt_importConfig(self):
-        self.args.config_path = QFileDialog.getOpenFileName( self, 'Open file', self.default_path,"(*.xls)")[0]
+        self.args.config_path = QFileDialog.getOpenFileName( self, 'Select file', self.default_path,"(*.xls)")[0]
         self.l_importConfig.setText(self.args.config_path)
         return
     
     def evt_importList(self):
-        self.args.input_path = QFileDialog.getOpenFileName( self, 'Open file', self.default_path,"(*.xls)")[0]
+        self.args.input_path = QFileDialog.getOpenFileName( self, 'Select file', self.default_path,"(*.xls)")[0]
         self.l_importList.setText(self.args.input_path)
         return
 
@@ -88,6 +89,12 @@ class Menu(QtWidgets.QMainWindow, menu.Ui_MainWindow):
         self.args.template_path = QFileDialog.getExistingDirectory(self, "Select Directory")
         self.l_importTemplates.setText(self.args.template_path)
         return
+    
+    def evt_selectOutputFIle(self):
+        self.args.output_path = QFileDialog.getSaveFileName(self, 'Select file', self.args.output_path, "txt(*.txt)")[0]
+        self.l_selectOutputFIle.setText(self.args.output_path)
+        return
+    
     
 if __name__ == "__main__":
     print("Orodje za množično urejanje položnic.")
