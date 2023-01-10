@@ -88,7 +88,13 @@ Izgled grafičnega vmesnika je prikazan na spodnji sliki.
 |:--:| 
 | *Izbira mape predlog.* |
 
-4. Pritisnemo na gumb START. Če smo pravilno sledili navodilom, nas program obvesti o končanju in pot do generirane daoteke.
+4. Pritisnemo na gumb Uvoz seznama in izberemo poljubno ime izhodne datoteke s končnico `.txt`, npr. `export.txt`. Izberemo Shrani.
+
+| ![Konfiguracija](/docs/img/gui_output_select.png) |
+|:--:| 
+| *Izbira izhodne datoteke.* |
+
+5. Pritisnemo na gumb START. Če smo pravilno sledili navodilom, nas program obvesti o končanju in pot do generirane daoteke.
 
 | ![Konfiguracija](/docs/img/gui_done.png) |
 |:--:| 
