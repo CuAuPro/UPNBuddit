@@ -1,0 +1,27 @@
+	<UPN>
+		<ID>{{ id }}</ID>
+		<TipDokumenta>{{ TipDokumenta }}</TipDokumenta>
+		<BremeIBAN>{{ BremeIBAN }}</BremeIBAN>
+		<BremeModel />
+		<BremeSklic />
+		<BremeIme>{{ BremeIme }}</BremeIme>
+		<BremeUlica>{{ BremeUlica }}</BremeUlica>
+		<BremeKraj>{{ BremeKraj }}</BremeKraj>
+		<DobroIBAN>{{ DobroIBAN }}</DobroIBAN>
+		<DobroModel>{{ DobroModel }}</DobroModel>
+		<DobroSklic>{{ DobroSklic }}</DobroSklic>
+		<DobroIme>{{ DobroIme }}</DobroIme>
+		<DobroUlica>{{ DobroUlica }}</DobroUlica>
+		<DobroKraj>{{ DobroKraj }}</DobroKraj>
+		<Znesek>{{ Znesek }}</Znesek>
+		<DatumPlacila>{{ DatumPlacila }}</DatumPlacila>
+		<NamenPlacila>{{ NamenPlacila }}</NamenPlacila>
+		<KodaNamena>{{ KodaNamena }}</KodaNamena>
+		<RokPlacila>{{ RokPlacila }}</RokPlacila>
+		<RokPlacilaDni>{{ RokPlacilaDni }}</RokPlacilaDni>
+		<Nujno>{{ Nujno }}</Nujno>
+		<BrezZneska>{{ BrezZneska }}</BrezZneska>
+		<BrezPlacnika>{{ BrezPlacnika }}</BrezPlacnika>
+		<NatisniQR>{{ NatisniQR }}</NatisniQR>
+	</UPN>
+
